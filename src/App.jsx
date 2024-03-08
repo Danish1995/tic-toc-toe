@@ -1,17 +1,16 @@
+import Player from "./components/Player";
+
 function App() {
   return (
     <main>
       <div id="game-container">
         <ol id="players">
-          <li>
-            <span className="player-name"> Player 1</span>
-            <span className="player-symbol">X</span>
-          </li>
-
-          <li>
-            <span className="player-name"> Player 2</span>
-            <span className="player-symbol">O</span>
-          </li>
+          <Player playerName="Player 1" playerSymbol="X"></Player>
+          {/* react create isolated instance of using same component, so state change in one component does not effect other
+          althogh they using same component, e.g clicking edit buttion does not show input field for player 2.
+          so component instance does not intefir with eacth other.
+          */}
+          <Player playerName="Player 2" playerSymbol="O"></Player>
         </ol>
         Game Board
       </div>
