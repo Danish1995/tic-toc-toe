@@ -1,19 +1,42 @@
+import { useState } from "react";
 import GameBoard from "./components/GameBoard";
 import Player from "./components/Player";
 
 function App() {
+  const [activePlayer, setActivePlayer] = useState("X");
+
+  function handleSquareClick() {
+    setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
+    // curActivePlayer will automaticly get the active player that is X because in useState intial value is X.
+  }
   return (
     <main>
       <div id="game-container">
-        <ol id="players">
-          <Player playerName="Player 1" playerSymbol="X"></Player>
+        <ol id="players" className="highlight-player">
+          <Player
+            playerName="Player 1"
+            playerSymbol="X"
+            isActive={activePlayer === "X"}
+          ></Player>
           {/* react create isolated instance of using same component, so state change in one component does not effect other
           althogh they using same component, e.g clicking edit buttion does not show input field for player 2.
           so component instance does not intefir with eacth other.
           */}
-          <Player playerName="Player 2" playerSymbol="O"></Player>
+          <Player
+            playerName="Player 2"
+            playerSymbol="O"
+            isActive={activePlayer === "O"}
+          ></Player>
         </ol>
-        <GameBoard />
+        <GameBoard
+          squareClick={handleSquareClick}
+          activePlayerSymbol={activePlayer}
+        />
+        {/* one important concept is lifting state up. this is needed when we need same information in two differenct componenet
+        for example in this case we need to know the active player in Player and GameBoard component.
+        
+        so in lifting state up we perfrom actions in the parent  component of both of these component and that is this App 
+        component because app componnet can pass infomration of active player to both child component via props*/}
       </div>
     </main>
   );

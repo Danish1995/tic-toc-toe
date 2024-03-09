@@ -5,7 +5,7 @@ const initialGameBoard = [
   [null, null, null],
 ];
 
-export default function GameBoard() {
+export default function GameBoard({ squareClick, activePlayerSymbol }) {
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
   // Immutable state updating in React means that you create a new copy of the state object when making changes, instead of
   //  modifying the existing state object directly. This is important for React because it helps to avoid unintended side
@@ -16,7 +16,8 @@ export default function GameBoard() {
       const updatedBoard = [
         ...prevGameBoard.map((innerArray) => [...innerArray]),
       ];
-      updatedBoard[rowIndex][colIndex] = "X";
+      updatedBoard[rowIndex][colIndex] = activePlayerSymbol;
+      squareClick();
       return updatedBoard;
     });
   }
