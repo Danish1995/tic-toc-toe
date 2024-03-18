@@ -21,6 +21,7 @@ export default function GameBoard({ squareClick, activePlayerSymbol }) {
       return updatedBoard;
     });
   }
+
   return (
     <ol id="game-board">
       {gameBoard.map((row, rowIndex) => (

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import GameBoard from "./components/GameBoard";
 import Player from "./components/Player";
+import Log from "./components/Log";
 
 function App() {
   const [activePlayer, setActivePlayer] = useState("X");
@@ -22,6 +23,9 @@ function App() {
           althogh they using same component, e.g clicking edit buttion does not show input field for player 2.
           so component instance does not intefir with eacth other.
           */}
+          {/* lift the state up to the closest ancestor component that has access to all components that need to work with that state
+           */}
+          {/* ancestor or parent component passes a function that eventually changes tht state via props to the child component */}
           <Player
             playerName="Player 2"
             playerSymbol="O"
@@ -31,12 +35,14 @@ function App() {
         <GameBoard
           squareClick={handleSquareClick}
           activePlayerSymbol={activePlayer}
-        />
+        ></GameBoard>
         {/* one important concept is lifting state up. this is needed when we need same information in two differenct componenet
         for example in this case we need to know the active player in Player and GameBoard component.
         
         so in lifting state up we perfrom actions in the parent  component of both of these component and that is this App 
         component because app componnet can pass infomration of active player to both child component via props*/}
+
+        <Log> </Log>
       </div>
     </main>
   );
