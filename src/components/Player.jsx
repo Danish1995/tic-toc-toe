@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { buttonClick ,playerNameEdit } from "./functions";
-
 export default function Player({ playerName, playerSymbol, isActive }) {
   const [isEditing, setIsEditing] = useState(false);
     const [playerNameUpdate, setplayerNameUpdate] = useState(playerName);
