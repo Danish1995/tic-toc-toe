@@ -53,9 +53,8 @@ function App() {
         
         so in lifting state up we perfrom actions in the parent  component of both of these component and that is this App 
         component because app componnet can pass infomration of active player to both child component via props*/}
-
-        <Log> </Log>
       </div>
+      <Log turns={gameTurns}> </Log>
     </main>
   );
 }
