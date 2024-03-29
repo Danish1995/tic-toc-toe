@@ -25,7 +25,10 @@ export default function GameBoard({ squareClick, turns }) {
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => squareClick(rowIndex, colIndex)}>
+                <button
+                  onClick={() => squareClick(rowIndex, colIndex)}
+                  disabled={playerSymbol !== null}
+                >
                   {/* When you write onClick={handleSelectSquare(rowIndex, colIndex)}, you're not passing a function reference;
                    instead, you're invoking the function immediately, and the onClick handler receives the result of that 
                    function call, which is undefined in this case. To fix this, you need to pass a function reference to
