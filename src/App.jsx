@@ -5,10 +5,22 @@ import Log from "./components/Log";
 
 function App() {
   const [activePlayer, setActivePlayer] = useState("X");
+  const [gameTurns, setGameTurns] = useState([]);
 
-  function handleSquareClick() {
+  function handleSquareClick(rowIndex, colIndex) {
     setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
     // curActivePlayer will automaticly get the active player that is X because in useState intial value is X.
+    setGameTurns((prevTurns) => {
+      let currentPlayer = "X";
+      if (prevTurns.length > 0 && prevTurns[0].player === "X") {
+        currentPlayer = "O";
+      }
+      const updatedTurns = [
+        { square: { row: rowIndex, col: colIndex }, player: currentPlayer },
+        ...prevTurns,
+      ];
+      return updatedTurns;
+    });
   }
   return (
     <main>
@@ -34,7 +46,7 @@ function App() {
         </ol>
         <GameBoard
           squareClick={handleSquareClick}
-          activePlayerSymbol={activePlayer}
+          turns={gameTurns}
         ></GameBoard>
         {/* one important concept is lifting state up. this is needed when we need same information in two differenct componenet
         for example in this case we need to know the active player in Player and GameBoard component.
