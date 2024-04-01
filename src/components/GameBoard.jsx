@@ -1,26 +1,11 @@
-const initialGameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
-
-export default function GameBoard({ squareClick, turns }) {
-  console.log(turns);
-  let gameBoard = initialGameBoard;
-
-  for (const turn of turns) {
-    const { square, player } = turn;
-
-    const { row, col } = square;
-    gameBoard[row][col] = player;
-  }
+export default function GameBoard({ squareClick, board }) {
   // Immutable state updating in React means that you create a new copy of the state object when making changes, instead of
   //  modifying the existing state object directly. This is important for React because it helps to avoid unintended side
   // effects and enables proper handling of component updates.
 
   return (
     <ol id="game-board">
-      {gameBoard.map((row, rowIndex) => (
+      {board.map((row, rowIndex) => (
         <li key={rowIndex}>
           <ol>
             {row.map((playerSymbol, colIndex) => (

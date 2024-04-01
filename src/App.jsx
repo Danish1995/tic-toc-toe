@@ -2,10 +2,45 @@ import { useState } from "react";
 import GameBoard from "./components/GameBoard";
 import Player from "./components/Player";
 import Log from "./components/Log";
+import { WINNING_COMBINATIONS } from "./winning-combinations";
+import GameOver from "./components/GameOver";
+
+const initialGameBoard = [
+  [null, null, null],
+  [null, null, null],
+  [null, null, null],
+];
 
 function App() {
   const [activePlayer, setActivePlayer] = useState("X");
   const [gameTurns, setGameTurns] = useState([]);
+
+  let gameBoard = initialGameBoard;
+
+  for (const turn of gameTurns) {
+    const { square, player } = turn;
+
+    const { row, col } = square;
+    gameBoard[row][col] = player;
+  }
+  let winner = null;
+  for (const combination of WINNING_COMBINATIONS) {
+    const firstSquareSymbol =
+      gameBoard[combination[0].row][combination[0].column];
+    const secpmdSquareSymbol =
+      gameBoard[combination[1].row][combination[1].column];
+    const thirdSquareSymbol =
+      gameBoard[combination[2].row][combination[2].column];
+
+    if (
+      firstSquareSymbol &&
+      firstSquareSymbol === secpmdSquareSymbol &&
+      firstSquareSymbol === thirdSquareSymbol
+    ) {
+      winner = firstSquareSymbol;
+    }
+  }
+  const hasDraw = gameTurns.length === 9 && !winner;
 
   function handleSquareClick(rowIndex, colIndex) {
     setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
@@ -21,6 +56,10 @@ function App() {
       ];
       return updatedTurns;
     });
+  }
+
+  function restartGame() {
+    setGameTurns([]);
   }
   return (
     <main>
@@ -44,9 +83,12 @@ function App() {
             isActive={activePlayer === "O"}
           ></Player>
         </ol>
+        {(winner || hasDraw) && (
+          <GameOver winner={winner} onRestart={restartGame}></GameOver>
+        )}
         <GameBoard
           squareClick={handleSquareClick}
-          turns={gameTurns}
+          board={gameBoard}
         ></GameBoard>
         {/* one important concept is lifting state up. this is needed when we need same information in two differenct componenet
         for example in this case we need to know the active player in Player and GameBoard component.
