@@ -15,7 +15,12 @@ function App() {
   const [activePlayer, setActivePlayer] = useState("X");
   const [gameTurns, setGameTurns] = useState([]);
 
-  let gameBoard = initialGameBoard;
+  let gameBoard = [...initialGameBoard.map((array) => [...array])];
+  console.log(gameBoard);
+
+  // let gameBoard = initialGameBoard; in this way we use reference value array and by setting
+  // some value to these array will change into initialGameBoard array and by clearing state on
+  // button rematch it still not clear the board
 
   for (const turn of gameTurns) {
     const { square, player } = turn;
