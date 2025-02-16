@@ -8,7 +8,7 @@ import GameOver from "./components/GameOver";
 const initialGameBoard = [
   [null, null, null],
   [null, null, null],
-  [null, null, null],
+  [null, null, 6],
 ];
 
 function App() {
