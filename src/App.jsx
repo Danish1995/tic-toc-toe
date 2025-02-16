@@ -102,7 +102,7 @@ function App() {
         component because app componnet can pass infomration of active player to both child component via props*/}
       </div>
       <Log turns={gameTurns}> </Log>
-      <log></log>
+    
     </main>
   );
 }
