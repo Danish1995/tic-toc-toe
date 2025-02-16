@@ -103,7 +103,7 @@ function App() {
       </div>
       <Log turns={gameTurns}> </Log>
       <p>Test paragraph child branch</p>
-    
+      <p>Test paragraph in master branch</p>
     </main>
   );
 }
